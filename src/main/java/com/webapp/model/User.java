@@ -5,8 +5,6 @@ import java.sql.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +28,7 @@ public class User {
 	private String emailId;
 	
 	@Column(name = "user_password")
-	private String UserPassword;
+	private String userPassword;
 	
 	@Column(name = "mobile_number")
 	private String mobileNumber;
@@ -71,11 +69,11 @@ public class User {
 	}
 
 	public String getUserPassword() {
-		return UserPassword;
+		return userPassword;
 	}
 
 	public void setUserPassword(String userPassword) {
-		UserPassword = userPassword;
+		this.userPassword = userPassword;
 	}
 
 	public String getMobileNumber() {
@@ -113,7 +111,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", emailId=" + emailId + ", UserPassword="
-				+ UserPassword + ", mobileNumber=" + mobileNumber + ", createdDate=" + createdDate + ", updatedDate="
+				+ userPassword + ", mobileNumber=" + mobileNumber + ", createdDate=" + createdDate + ", updatedDate="
 				+ updatedDate + ", isActive=" + isActive + "]";
 	}
 	

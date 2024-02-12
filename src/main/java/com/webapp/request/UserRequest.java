@@ -43,7 +43,7 @@ public class UserRequest {
 	}
 
 	public void setUserPassword(String userPassword) {
-		userPassword = userPassword;
+		this.userPassword = userPassword;
 	}
 
 	public String getMobileNumber() {
