@@ -20,20 +20,21 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping("/add/user")
-	public ResponseEntity<SaveUserResponse> addNewUser(@RequestBody UserRequest userRequest) {
-		ResponseEntity<SaveUserResponse> saveUserResponse = null;
-		SaveUserResponse user = new SaveUserResponse();
+	public ResponseEntity<String> addNewUser(@RequestBody UserRequest userRequest) {
+		ResponseEntity<String> saveUserResponse = null;
+		String message=null;
+		
 	    try {
-	      user = userService.saveUser(userRequest);
-			if(user !=null) {
-				saveUserResponse=new ResponseEntity<SaveUserResponse>(user, HttpStatus.OK);
+	    	message = userService.saveUser(userRequest);
+			if(message !=null) {
+				saveUserResponse=	new ResponseEntity<String>(message, HttpStatus.OK);
 			} else {
-				saveUserResponse = new ResponseEntity<SaveUserResponse>(HttpStatus.BAD_REQUEST);
+				saveUserResponse=new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
 				throw new Exception();
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-			saveUserResponse = new ResponseEntity<SaveUserResponse>(HttpStatus.BAD_REQUEST);
+			 new ResponseEntity<String>(message,HttpStatus.BAD_REQUEST);
 		}
 		return saveUserResponse;
 	}
