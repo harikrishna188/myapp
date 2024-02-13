@@ -52,15 +52,17 @@ public class UserServiceImpl implements UserService {
 				if (userRequest.getUserId() == 0 && userReport.isPresent()) {
 					message = "user already existed";
 					throw new Exception("user already existed");
-				} else if (userRequest.getUserId() != 0 && userReport.isPresent()) {
+				} else if (userRequest.getUserId() != 0 ) {
 					message = "user updated successfully";
-					Optional<User> userEmail = userRepository.findByEmail(email);
-					if (!userEmail.isPresent()&&userEmail.get().getUserId()!=userRequest.getUserId()) {
-						BeanUtils.copyProperties(userRequest, user);
-						user.setCreatedDate(userReport.get().getCreatedDate());
-					} else {
+					Optional<User> userRecord = userRepository.findByIdAndEmailId(userRequest.getUserId(),email);
+					Optional<User> userReco = userRepository.findById(userRequest.getUserId());
+					if (!userRecord.isPresent() && userReport.isPresent()) {
 						message = "email already existed";
 						throw new Exception("email already existed");
+					} else {
+						BeanUtils.copyProperties(userRequest, user);
+						user.setCreatedDate(userReco.get().getCreatedDate());
+						
 					}
 				} else {
 					message = "user saved successfully";
