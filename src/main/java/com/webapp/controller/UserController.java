@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webapp.request.UserRequest;
-import com.webapp.response.SaveUserResponse;
 import com.webapp.service.UserService;
 @RestController
 @RequestMapping("user_controller")
