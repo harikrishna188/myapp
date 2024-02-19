@@ -18,6 +18,7 @@ import com.webapp.security.JwtHelper;
 import com.webapp.security.JwtRequest;
 import com.webapp.security.JwtResponse;
 
+
 @RestController
 @RequestMapping("auth_controller/")
 public class AuthenticationController {
@@ -39,8 +40,8 @@ public class AuthenticationController {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
 		String token = this.jwtHelper.generateToken(userDetails);
 		JwtResponse jwtResponse = JwtResponse.builder()
-				.jwtToken(token).
-				user(userDetails.getUsername()).build();
+                .jwtToken(token)
+                .username(userDetails.getUsername()).build();
 		return new ResponseEntity<>(jwtResponse,HttpStatus.OK);
 	}
 
