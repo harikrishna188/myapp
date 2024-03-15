@@ -8,23 +8,23 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
-public class SecurityConfig {
-	
-	@Autowired
-    private MyJwtAuthenticationEntryPoint point;
-    @Autowired
-    private JwtAuthenticationFilter filter;
-
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        http.csrf(csrf -> csrf.disable()).authorizeRequests(requests -> requests.requestMatchers("/test").authenticated()
-                .requestMatchers("/auth/login").permitAll().anyRequest().authenticated())
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-		return http.build();
-	}
-
-}
+//@Configuration
+//public class SecurityConfig {
+//	
+//	@Autowired
+//    private MyJwtAuthenticationEntryPoint point;
+//    @Autowired
+//    private JwtAuthenticationFilter filter;
+//
+//	@Bean
+//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//
+//        http.csrf(csrf -> csrf.disable()).authorizeRequests(requests -> requests.requestMatchers("/test").authenticated()
+//                .requestMatchers("/auth/login").permitAll().anyRequest().authenticated())
+//                .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+//		return http.build();
+//	}
+//
+//}

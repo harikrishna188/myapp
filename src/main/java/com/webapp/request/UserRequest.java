@@ -13,6 +13,8 @@ public class UserRequest {
 	private String mobileNumber;
 
 	private String isActive;
+	
+	private String role;
 
 	public Long getUserId() {
 		return userId;
@@ -62,10 +64,18 @@ public class UserRequest {
 		this.isActive = isActive;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "UserRequest [userId=" + userId + ", userName=" + userName + ", emailId=" + emailId + ", userPassword="
-				+ userPassword + ", mobileNumber=" + mobileNumber + ", isActive=" + isActive + "]";
+				+ userPassword + ", mobileNumber=" + mobileNumber + ", isActive=" + isActive + ", role=" + role + "]";
 	}
 
 }

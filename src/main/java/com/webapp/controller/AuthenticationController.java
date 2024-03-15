@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.webapp.security.JwtHelper;
 import com.webapp.security.JwtRequest;
 import com.webapp.security.JwtResponse;
+import com.webapp.service.JwtService;
 
 
 @RestController
@@ -32,17 +33,17 @@ public class AuthenticationController {
     private AuthenticationManager AuthenticationManager;
 	
 	@Autowired
-	private JwtHelper jwtHelper;
+	private JwtService jwtService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) {
-		this.doAuthenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
-		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
-		String token = this.jwtHelper.generateToken(userDetails);
-		JwtResponse jwtResponse = JwtResponse.builder()
-                .jwtToken(token)
-                .username(userDetails.getUsername()).build();
-		return new ResponseEntity<>(jwtResponse,HttpStatus.OK);
+	public String login(@RequestBody JwtRequest jwtRequest) {
+//		this.doAuthenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
+//		UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
+//		String token = this.jwtService.generateToken(jwtRequest.getEmail());
+//		JwtResponse jwtResponse = JwtResponse.builder()
+//                .jwtToken(token)
+//                .username(userDetails.getUsername()).build();
+		return jwtService.generateToken(jwtRequest.getEmail());
 	}
 
 	private void doAuthenticate(String email, String password) {

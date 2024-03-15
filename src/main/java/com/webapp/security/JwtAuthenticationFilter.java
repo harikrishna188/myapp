@@ -11,6 +11,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.webapp.service.JwtService;
+import com.webapp.service.UserInfoUserDetailsService;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.io.IOException;
@@ -24,10 +27,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
     @Autowired
     private JwtHelper jwtHelper;
-
-
+    
     @Autowired
-    private UserDetailsService userDetailsService;
+    private JwtService jwtService;
+    
+    @Autowired
+    private UserInfoUserDetailsService userInfoUserDetailsService;
+
+//
+//    @Autowired
+//    private UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, java.io.IOException {
@@ -47,9 +56,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (requestHeader != null && requestHeader.startsWith("Bearer")) {
             //looking good
             token = requestHeader.substring(7);
+           
             try {
 
-                username = this.jwtHelper.getUsernameFromToken(token);
+            	 username = jwtService.extractUsername(token);
 
             } catch (IllegalArgumentException e) {
                 logger.info("Illegal Argument while fetching the username !!");
@@ -76,8 +86,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
             //fetch user detail from username
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
+            UserDetails userDetails = this.userInfoUserDetailsService.loadUserByUsername(username);
+            Boolean validateToken = this.jwtService.validateToken(token, userDetails);
             if (validateToken) {
 
                 //set the authentication
