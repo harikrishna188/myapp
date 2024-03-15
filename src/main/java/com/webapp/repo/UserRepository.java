@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value = "SELECT *FROM zco_user WHERE  user_id=?1  and email_id=?2 and is_active = '1'", nativeQuery = true)
 	Optional<User> findByIdAndEmailId(Long userId,String email);
 
+	Optional<User> findByUserName(String username);
+	
+
 }

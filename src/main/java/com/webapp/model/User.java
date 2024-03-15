@@ -43,6 +43,9 @@ public class User {
 
 	@Column(name = "is_active")
 	private String isActive;
+	
+	@Column(name = "role")
+	private String role;
 
 	public Long getUserId() {
 		return userId;
@@ -108,12 +111,20 @@ public class User {
 		this.isActive = isActive;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", emailId=" + emailId + ", UserPassword="
+		return "User [userId=" + userId + ", userName=" + userName + ", emailId=" + emailId + ", userPassword="
 				+ userPassword + ", mobileNumber=" + mobileNumber + ", createdDate=" + createdDate + ", updatedDate="
-				+ updatedDate + ", isActive=" + isActive + "]";
+				+ updatedDate + ", isActive=" + isActive + ", role=" + role + "]";
 	}
-	
+
 	
 }
